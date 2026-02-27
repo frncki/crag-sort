@@ -1,6 +1,30 @@
 import { useState } from 'react'
 import { parseRoutes } from './utils/parseRoutes'
 import { groupOptions, groupRoutes } from './utils/groupRoutes'
+import RouteItem from './RouteItem'
+import type { Route } from './types'
+
+const exampleRoute: Route = {
+  zlaggableName: 'Alcatraz',
+  zlaggableSlug: 'alcatraz',
+  cragSlug: 'frankenjura',
+  cragName: 'Frankenjura',
+  countrySlug: 'germany',
+  countryName: 'Germany',
+  areaSlug: 'northern-frankenjura',
+  areaName: 'Northern Frankenjura',
+  sectorSlug: 'krottenseer-turm',
+  sectorName: 'Krottenseer Turm',
+  category: 0,
+  difficulty: '8a',
+  gradeIndex: 800,
+  totalAscents: 142,
+  totalRecommendedRate: 87,
+  averageRating: 4.2069,
+  flashOnsightRate: 0.12,
+  userClimbed: false,
+  hasVlId: true,
+}
 
 export default function RouteInput() {
   const [text, setText] = useState('')
@@ -27,6 +51,9 @@ export default function RouteInput() {
       >
         Process
       </button>
+      <div className="mt-6">
+        <RouteItem route={exampleRoute} />
+      </div>
     </>
   )
 }
