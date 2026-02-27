@@ -1,7 +1,11 @@
 import type { Route } from '../types'
 
+function stripTrailingCommas(s: string): string {
+  return s.replace(/,\s*]/g, ']').replace(/,\s*}/g, '}')
+}
+
 export function parseRoutes(text: string): Route[] {
-  const trimmed = text.trim()
+  const trimmed = stripTrailingCommas(text.trim())
   if (!trimmed) return []
 
   // Try parsing as a single JSON array

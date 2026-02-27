@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { parseRoutes } from './utils/parseRoutes'
+import { groupOptions, groupRoutes } from './utils/groupRoutes'
 
 export default function RouteInput() {
   const [text, setText] = useState('')
@@ -7,6 +8,8 @@ export default function RouteInput() {
   function handleProcess() {
     const routes = parseRoutes(text)
     console.log(routes)
+    const grouped = groupRoutes(routes, groupOptions[3])
+    console.log(grouped)
   }
 
   return (

@@ -48,6 +48,14 @@ describe('parseRoutes', () => {
     ])
   })
 
+  it('handles trailing commas in arrays and objects', () => {
+    const input = '[{"zlaggableName": "A",}, {"zlaggableName": "B"},]'
+    expect(parseRoutes(input)).toEqual([
+      { zlaggableName: 'A' },
+      { zlaggableName: 'B' },
+    ])
+  })
+
   it('returns [] for invalid JSON', () => {
     expect(parseRoutes('not json at all')).toEqual([])
   })
