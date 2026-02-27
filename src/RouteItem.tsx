@@ -13,7 +13,9 @@ export default function RouteItem({ route }: { route: Route }) {
         </div>
       </div>
       <span className="w-12 shrink-0 text-right">{route.averageRating}</span>
-      <span className="w-12 shrink-0 text-right">{route.totalRecommendedRate}%</span>
+      <span className="w-12 shrink-0 text-right">
+        {Number(route.totalRecommendedRate * 100).toFixed(2)}%
+      </span>
     </div>
   )
 }

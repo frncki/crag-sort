@@ -1,39 +1,22 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { parseRoutes } from './utils/parseRoutes'
-import { groupOptions, groupRoutes } from './utils/groupRoutes'
-import RouteItem from './RouteItem'
+import { groupOptions, groupRoutes, type GroupOption } from './utils/groupRoutes'
 import type { Route } from './types'
-
-const exampleRoute: Route = {
-  zlaggableName: 'Alcatraz',
-  zlaggableSlug: 'alcatraz',
-  cragSlug: 'frankenjura',
-  cragName: 'Frankenjura',
-  countrySlug: 'germany',
-  countryName: 'Germany',
-  areaSlug: 'northern-frankenjura',
-  areaName: 'Northern Frankenjura',
-  sectorSlug: 'krottenseer-turm',
-  sectorName: 'Krottenseer Turm',
-  category: 0,
-  difficulty: '8a',
-  gradeIndex: 800,
-  totalAscents: 142,
-  totalRecommendedRate: 87,
-  averageRating: 4.2069,
-  flashOnsightRate: 0.12,
-  userClimbed: false,
-  hasVlId: true,
-}
+import RouteTable from './RouteTable'
 
 export default function RouteInput() {
   const [text, setText] = useState('')
+  const [routes, setRoutes] = useState<Route[] | null>(null)
+  const [selectedGroup, setSelectedGroup] = useState<GroupOption>(groupOptions[3])
+
+  const groups = useMemo(
+    () => (routes ? groupRoutes(routes, selectedGroup) : null),
+    [routes, selectedGroup],
+  )
 
   function handleProcess() {
-    const routes = parseRoutes(text)
-    console.log(routes)
-    const grouped = groupRoutes(routes, groupOptions[3])
-    console.log(grouped)
+    const parsed = parseRoutes(text)
+    setRoutes(parsed)
   }
 
   return (
@@ -45,15 +28,26 @@ export default function RouteInput() {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button
-        onClick={handleProcess}
-        className="mt-4 rounded-lg bg-accent px-6 py-2 font-semibold text-white hover:opacity-90"
-      >
-        Process
-      </button>
-      <div className="mt-6">
-        <RouteItem route={exampleRoute} />
+
+      <div className="mt-4 flex items-center gap-4">
+        <select
+          value={groupOptions.indexOf(selectedGroup)}
+          onChange={(e) => setSelectedGroup(groupOptions[Number(e.target.value)])}
+          className="rounded-lg bg-surface px-3 py-2 text-white border border-transparent focus:border-accent focus:outline-none"
+        >
+          {groupOptions.map((opt, i) => (
+            <option key={opt.key} value={i}>{opt.label}</option>
+          ))}
+        </select>
+        <button
+          onClick={handleProcess}
+          className="rounded-lg bg-accent px-6 py-2 font-semibold text-white hover:opacity-90"
+        >
+          Process
+        </button>
       </div>
+
+      {groups && <RouteTable groups={groups} />}
     </>
   )
 }
