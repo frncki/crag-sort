@@ -7,12 +7,19 @@ import RouteTable from './RouteTable'
 export default function RouteInput() {
   const [text, setText] = useState('')
   const [routes, setRoutes] = useState<Route[] | null>(null)
-  const [selectedGroup, setSelectedGroup] = useState<GroupOption>(groupOptions[3])
+  const [selectedGroup, setSelectedGroup] = useState<GroupOption>(groupOptions[2])
 
   const groups = useMemo(
     () => (routes ? groupRoutes(routes, selectedGroup) : null),
     [routes, selectedGroup],
   )
+
+  async function handleLoadSample() {
+    const res = await fetch('/sample-data.json')
+    const data = await res.json()
+    const flattened = data.flat()
+    setText(JSON.stringify(flattened, null, 2))
+  }
 
   function handleProcess() {
     const parsed = parseRoutes(text)
@@ -44,6 +51,12 @@ export default function RouteInput() {
           className="rounded-lg bg-accent px-6 py-2 font-semibold text-white hover:opacity-90"
         >
           Process
+        </button>
+        <button
+          onClick={handleLoadSample}
+          className="rounded-lg border border-accent px-6 py-2 font-semibold text-accent hover:opacity-90"
+        >
+          Load sample
         </button>
       </div>
 
