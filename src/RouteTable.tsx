@@ -34,7 +34,7 @@ export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
   )
 
   return (
-    <div className="mt-6 flex items-start gap-4">
+    <div className="mt-6 flex items-start gap-4 print:block">
       <div className="min-w-0 flex-1 rounded-sm bg-surface p-4 space-y-6">
         {visibleGroups.map((group) => (
           <section key={group.groupLabel}>
@@ -57,7 +57,7 @@ export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
         ))}
       </div>
 
-      <div className="w-48 shrink-0 rounded-sm bg-surface p-4 space-y-4">
+      <div className="w-48 shrink-0 rounded-sm bg-surface p-4 space-y-4 print:hidden">
         <div>
           <h3 className="mb-2 text-sm font-semibold text-accent">Sort routes</h3>
           {sortOptions.map((opt) => (

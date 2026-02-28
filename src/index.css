@@ -38,3 +38,42 @@ body {
   color: #ffffff;
   font-family: var(--font-sans);
 }
+
+@media print {
+  textarea,
+  select,
+  h1 {
+    display: none !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  .bg-surface {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  .text-accent {
+    color: #333 !important;
+  }
+
+  .text-gray-400 {
+    color: #666 !important;
+  }
+
+  .divide-black > * + * {
+    border-color: #ddd !important;
+  }
+
+  .mx-auto {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+}

@@ -15,7 +15,7 @@ export default function RouteInput() {
   )
 
   async function handleLoadSample() {
-    const res = await fetch('/sample-data.json')
+    const res = await fetch(`${import.meta.env.BASE_URL}sample-data.json`)
     const data = await res.json()
     const flattened = data.flat()
     setText(JSON.stringify(flattened, null, 2))
@@ -29,14 +29,14 @@ export default function RouteInput() {
   return (
     <>
       <textarea
-        className="w-full rounded-lg border border-transparent bg-surface p-4 text-white placeholder-gray-400 focus:border-accent focus:outline-none"
+        className="w-full rounded-lg border border-transparent bg-surface p-4 text-white placeholder-gray-400 focus:border-accent focus:outline-none print:hidden"
         rows={16}
         placeholder="Wklej tablice JSON z drogami..."
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
 
-      <div className="mt-4 flex items-center gap-4">
+      <div className="mt-4 flex items-center gap-4 print:hidden">
         <select
           value={groupOptions.indexOf(selectedGroup)}
           onChange={(e) => setSelectedGroup(groupOptions[Number(e.target.value)])}
@@ -48,7 +48,8 @@ export default function RouteInput() {
         </select>
         <button
           onClick={handleProcess}
-          className="rounded-lg bg-accent px-6 py-2 font-semibold text-white hover:opacity-90"
+          disabled={!text.trim()}
+          className="rounded-lg bg-accent px-6 py-2 font-semibold text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Process
         </button>
@@ -58,6 +59,14 @@ export default function RouteInput() {
         >
           Load sample
         </button>
+        {groups && (
+          <button
+            onClick={() => window.print()}
+            className="ml-auto rounded-lg border border-accent px-6 py-2 font-semibold text-accent hover:opacity-90 print:hidden"
+          >
+            Export PDF
+          </button>
+        )}
       </div>
 
       {groups && <RouteTable groups={groups} />}
