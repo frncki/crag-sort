@@ -31,7 +31,7 @@ export default function RouteInput() {
       <textarea
         className="w-full rounded-lg border border-transparent bg-surface p-4 text-white placeholder-gray-400 focus:border-accent focus:outline-none print:hidden"
         rows={16}
-        placeholder="Wklej tablice JSON z drogami..."
+        placeholder="Paste JSON array with routes...."
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
