@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { RouteGroup } from './utils/groupRoutes'
+import { sortOptions, type SortOption } from './utils/sortRoutes'
 import RouteItem from './RouteItem'
 
 export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
   const [excludedGroups, setExcludedGroups] = useState<Set<string>>(new Set())
   const [prevGroups, setPrevGroups] = useState(groups)
+  const [sortOption, setSortOption] = useState<SortOption>(sortOptions[0])
 
   if (groups !== prevGroups) {
     setPrevGroups(groups)
@@ -20,7 +22,16 @@ export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
     })
   }
 
-  const visibleGroups = groups.filter((g) => !excludedGroups.has(g.groupLabel))
+  const visibleGroups = useMemo(
+    () =>
+      groups
+        .filter((g) => !excludedGroups.has(g.groupLabel))
+        .map((g) => ({
+          ...g,
+          routes: [...g.routes].sort(sortOption.comparator),
+        })),
+    [groups, excludedGroups, sortOption],
+  )
 
   return (
     <div className="mt-6 flex items-start gap-4">
@@ -46,21 +57,41 @@ export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
         ))}
       </div>
 
-      <div className="w-48 shrink-0 rounded-sm bg-surface p-4">
-        <h3 className="mb-2 text-sm font-semibold text-accent">Hide groups</h3>
-        {groups.map((group) => (
-          <label
-            key={group.groupLabel}
-            className="flex items-center gap-2 py-1 text-sm"
-          >
-            <input
-              type="checkbox"
-              checked={excludedGroups.has(group.groupLabel)}
-              onChange={() => toggleGroup(group.groupLabel)}
-            />
-            <span className="truncate">{group.groupLabel}</span>
-          </label>
-        ))}
+      <div className="w-48 shrink-0 rounded-sm bg-surface p-4 space-y-4">
+        <div>
+          <h3 className="mb-2 text-sm font-semibold text-accent">Sort routes</h3>
+          {sortOptions.map((opt) => (
+            <label
+              key={opt.label}
+              className="flex items-center gap-2 py-1 text-sm"
+            >
+              <input
+                type="radio"
+                name="sort"
+                checked={sortOption === opt}
+                onChange={() => setSortOption(opt)}
+              />
+              <span className="truncate">{opt.label}</span>
+            </label>
+          ))}
+        </div>
+
+        <div>
+          <h3 className="mb-2 text-sm font-semibold text-accent">Hide groups</h3>
+          {groups.map((group) => (
+            <label
+              key={group.groupLabel}
+              className="flex items-center gap-2 py-1 text-sm"
+            >
+              <input
+                type="checkbox"
+                checked={excludedGroups.has(group.groupLabel)}
+                onChange={() => toggleGroup(group.groupLabel)}
+              />
+              <span className="truncate">{group.groupLabel}</span>
+            </label>
+          ))}
+        </div>
       </div>
     </div>
   )

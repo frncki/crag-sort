@@ -31,8 +31,10 @@ export function groupRoutes(routes: Route[], option: GroupOption): RouteGroup[] 
     map.get(key)!.routes.push(route);
   }
 
-  return Array.from(map.values()).map(({ label, routes }) => ({
-    groupLabel: label,
-    routes: [...routes].sort((a, b) => a.gradeIndex - b.gradeIndex),
-  }));
+  return Array.from(map.values())
+    .map(({ label, routes }) => ({
+      groupLabel: label,
+      routes: [...routes],
+    }))
+    .sort((a, b) => a.groupLabel.localeCompare(b.groupLabel));
 }
