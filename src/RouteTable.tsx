@@ -30,6 +30,13 @@ export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
             <h2 className="mb-2 text-lg font-semibold text-accent">
               {group.groupLabel}
             </h2>
+            <div className="flex items-center gap-4 px-4 py-2 text-sm font-light text-gray-400">
+              <span className="w-16 shrink-0 text-center">GRADE</span>
+              <span className="min-w-0 flex-1">NAME</span>
+              <span className="w-24 shrink-0 text-right">ASCENTS</span>
+              <span className="w-20 shrink-0 text-right">RECOMMENDED</span>
+              <span className="w-20 shrink-0 text-right">RATING</span>
+            </div>
             <div className="divide-y divide-black">
               {group.routes.map((route) => (
                 <RouteItem key={route.zlaggableSlug} route={route} />
@@ -40,7 +47,7 @@ export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
       </div>
 
       <div className="w-48 shrink-0 rounded-sm bg-surface p-4">
-        <h3 className="mb-2 text-sm font-semibold text-accent">Ukryj grupy</h3>
+        <h3 className="mb-2 text-sm font-semibold text-accent">Hide groups</h3>
         {groups.map((group) => (
           <label
             key={group.groupLabel}
