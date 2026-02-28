@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import Collapse from './Collapse'
 import { parseRoutes } from './utils/parseRoutes'
 import { groupOptions, groupRoutes, type GroupOption } from './utils/groupRoutes'
 import type { Route } from './types'
@@ -69,7 +70,9 @@ export default function RouteInput() {
         )}
       </div>
 
-      {groups && <RouteTable groups={groups} />}
+      <Collapse open={!!groups}>
+        {groups && <RouteTable groups={groups} />}
+      </Collapse>
     </>
   )
 }

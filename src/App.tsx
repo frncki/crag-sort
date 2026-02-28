@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Collapse from './Collapse'
 import Instructions from './Instructions'
 import RouteInput from './RouteInput'
 
@@ -14,7 +15,9 @@ function App() {
         <img src={`${import.meta.env.BASE_URL}cragsort-logo.svg`} alt="" className="h-[1em]" />
         Cragsort
       </h1>
-      {showInstructions && <Instructions />}
+      <Collapse open={showInstructions}>
+        <Instructions />
+      </Collapse>
       <RouteInput />
     </div>
   )
