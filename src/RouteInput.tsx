@@ -37,11 +37,11 @@ export default function RouteInput() {
         onChange={(e) => setText(e.target.value)}
       />
 
-      <div className="mt-4 flex items-center gap-4 print:hidden">
+      <div className="mt-4 flex flex-col md:flex-row md:flex-wrap items-stretch md:items-center gap-2 md:gap-4 print:hidden">
         <select
           value={groupOptions.indexOf(selectedGroup)}
           onChange={(e) => setSelectedGroup(groupOptions[Number(e.target.value)])}
-          className="rounded-lg bg-surface px-3 py-2 text-white border border-transparent focus:border-accent focus:outline-none"
+          className="w-full md:w-auto rounded-lg bg-surface px-3 py-2 text-white border border-transparent focus:border-accent focus:outline-none"
         >
           {groupOptions.map((opt, i) => (
             <option key={opt.key} value={i}>{opt.label}</option>
@@ -63,7 +63,7 @@ export default function RouteInput() {
         {groups && (
           <button
             onClick={() => window.print()}
-            className="ml-auto rounded-lg border border-accent px-6 py-2 font-semibold text-accent hover:opacity-90 print:hidden"
+            className="md:ml-auto rounded-lg border border-accent px-6 py-2 font-semibold text-accent hover:opacity-90 print:hidden"
           >
             Export PDF
           </button>

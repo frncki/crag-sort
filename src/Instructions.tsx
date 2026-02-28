@@ -1,6 +1,6 @@
 export default function Instructions() {
   return (
-    <div className="mb-8 rounded-lg bg-neutral-800/60 px-6 py-5 text-sm text-neutral-400 print:hidden">
+    <div className="mb-4 md:mb-8 rounded-lg bg-neutral-800/60 px-4 md:px-6 py-4 md:py-5 text-sm text-neutral-400 print:hidden">
       <p className="mb-3 font-semibold text-neutral-300">How to get data</p>
       <ol className="list-decimal space-y-1 pl-5">
         <li>Go to <strong className="text-neutral-300">8a.nu</strong> and log in to your account</li>
