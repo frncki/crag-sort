@@ -9,4 +9,5 @@ export default defineConfig({
   test: {
     globals: true,
   },
+  base: '/cragsort/',
 })

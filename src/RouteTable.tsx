@@ -70,6 +70,7 @@ export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
                 name="sort"
                 checked={sortOption === opt}
                 onChange={() => setSortOption(opt)}
+                className="custom-radio"
               />
               <span className="truncate">{opt.label}</span>
             </label>
@@ -87,6 +88,7 @@ export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
                 type="checkbox"
                 checked={excludedGroups.has(group.groupLabel)}
                 onChange={() => toggleGroup(group.groupLabel)}
+                className="custom-checkbox"
               />
               <span className="truncate">{group.groupLabel}</span>
             </label>
