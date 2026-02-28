@@ -8,11 +8,7 @@ import { cloudflare } from "@cloudflare/vite-plugin";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss(), cloudflare()],
-  build: {
-    outDir: 'dist/cragsort',
-  },
   test: {
     globals: true,
   },
-  base: '/cragsort/',
 })
