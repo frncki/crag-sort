@@ -9,7 +9,7 @@ export default function Instructions() {
         <li>Open browser DevTools (<kbd>F12</kbd> or <kbd>Ctrl+Shift+I</kbd> / <kbd>Cmd+Option+I</kbd>)</li>
         <li>Switch to the <strong className="text-neutral-300">Network</strong> tab</li>
         <li>Reload the page (<kbd>F5</kbd> / <kbd>Cmd+R</kbd>)</li>
-        <li>Look for the XHR/Fetch request that returns a JSON array of routes (the largest response)</li>
+        <li>Look for the XHR/Fetch request that returns a JSON array of routes (something like: routes?pageIndex=0&pageSize=50)</li>
         <li>Click on the request, then go to the <strong className="text-neutral-300">Response</strong> or <strong className="text-neutral-300">Preview</strong> tab</li>
         <li>Right-click on the response data and select <strong className="text-neutral-300">Copy object</strong></li>
         <li>Paste the copied JSON into the text area below</li>

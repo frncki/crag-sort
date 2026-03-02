@@ -5,12 +5,23 @@ import RouteItem from './RouteItem'
 
 export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
   const [excludedGroups, setExcludedGroups] = useState<Set<string>>(new Set())
+  const [starredSlugs, setStarredSlugs] = useState<Set<string>>(new Set())
   const [prevGroups, setPrevGroups] = useState(groups)
   const [sortOption, setSortOption] = useState<SortOption>(sortOptions[0])
 
   if (groups !== prevGroups) {
     setPrevGroups(groups)
     setExcludedGroups(new Set())
+    setStarredSlugs(new Set())
+  }
+
+  function toggleStar(slug: string) {
+    setStarredSlugs((prev) => {
+      const next = new Set(prev)
+      if (next.has(slug)) next.delete(slug)
+      else next.add(slug)
+      return next
+    })
   }
 
   function toggleGroup(label: string) {
@@ -47,10 +58,16 @@ export default function RouteTable({ groups }: { groups: RouteGroup[] }) {
               <span className="w-24 shrink-0 text-right">ASCENTS</span>
               <span className="w-20 shrink-0 text-right">RECOMMENDED</span>
               <span className="w-20 shrink-0 text-right">RATING</span>
+              <span className="w-8 shrink-0" />
             </div>
             <div className="divide-y divide-black">
               {group.routes.map((route) => (
-                <RouteItem key={route.zlaggableSlug} route={route} />
+                <RouteItem
+                  key={route.zlaggableSlug}
+                  route={route}
+                  starred={starredSlugs.has(route.zlaggableSlug)}
+                  onToggleStar={() => toggleStar(route.zlaggableSlug)}
+                />
               ))}
             </div>
           </section>

@@ -13,6 +13,7 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
